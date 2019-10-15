@@ -10,9 +10,10 @@
 {% for post in posts %}
     <div>
         <p>Published: {{ post.published_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
+        <!-- from the forloop we get the posts pk and then we send it to post_detail -->
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
         <!-- linebreaksbr == makes sure lines are breaking nicely-->
-        <p>{{ post.text| linebreaksbr }}</p>
+        <p>{{ post.text|linebreaksbr }}</p>
     </div>
 {% endfor %}
 
