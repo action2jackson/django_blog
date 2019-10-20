@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Jackson's Blog</title>
-</head>
-<body>
-<h1><a href="">Jackson's Blog</a></h1>
-<!-- takes posts from stuff_for_frontend and connects it with a forloop -->
-{% for post in posts %}
-    <div>
-        <p>Published: {{ post.published_date }}</p>
-        <!-- from the forloop we get the posts pk and then we send it to post_detail -->
-        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-        <!-- linebreaksbr == makes sure lines are breaking nicely-->
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-{% endfor %}
+{% extends 'blog/base.html' %}
 
-</body>
-</html>
+{% block content %}
+    <!-- takes posts from stuff_for_frontend and connects it with a forloop -->
+    {% for post in posts %}
+        <div class="post">
+
+            <div class="date">
+                <p>Published: {{ post.published_date }}</p>
+            </div>
+
+            <!-- from the forloop we get the posts pk and then we send it to post_detail -->
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <!-- linebreaksbr == makes sure lines are breaking nicely-->
+            <p class="text">{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+
+<!-- Bootstrap creates nice header -->
+<div class="page-header">
+    <!-- / takes you home OR {% url "post_list" %} to go back to main page -->
+    <h1><a class="title" href="{% url 'post_list' %}">Jackson's Blog</a></h1>
+</div>
+
+<!-- Bootstrap creates a container, row and column -->
+<div class="content container">
+    <div class="row">
+        <div class="col-8-md">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
