@@ -47,3 +47,12 @@ h1, h2, h3, h4 {
     border-radius: 3px;
 }
 
+.post-form-blog textarea {
+    width: 100%;
+}
+
+
+
+.post-form-blog .btn-primary {
+    float: right;
+}

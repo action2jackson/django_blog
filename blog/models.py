@@ -2,8 +2,9 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-# Change models file = change to the database
+# Change models file = change to the database (make migrations)
 class Post(models.Model):
+    # ForeignKey = only can be used in the existing database.
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()

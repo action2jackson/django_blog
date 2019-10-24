@@ -9,5 +9,9 @@ urlpatterns = [
 
     # 127.0.0.1:8000/post/2 == You will be taken to the post that has a primary key of 2
     # <int == You need to put in a number
-    path('post/<int:pk>/', views.post_detail, name='post_detail')
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+
+    # 2.2.2.2. plug it into urls to find it in views
+    # 127.0.0.1:8000/post/new = local
+    path('post/new/', views.post_new, name='post_new'),
 ]

@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+
+from blog.forms import PostForm
 from .models import Post
 
 # Create your views here.
@@ -15,3 +17,26 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     stuff_for_frontend = {'post': post}
     return render(request, 'blog/post_detail.html', stuff_for_frontend)
+
+# 1.1.1.1. define it in views to render the html
+def post_new(request):
+    # GET request doesnt allow you to submit forms!
+    if request.method == 'POST':
+        # requesting form from forms.py (title and text)
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            # The user is automatically the author
+            post.author = request.user
+            # Dont need to add created_date to this list because it is already timezone.now()
+            post.published_date = timezone.now()
+            post.save()
+            # using redirect instead of render so when you refresh page it doesnt submit the form again
+            return redirect('post_detail', pk=post.pk)
+    else:
+        # the else is basically saying run this code if its a GET request
+        # form is calling the post_edit.html form, which equals the PostForm function
+        form = PostForm()
+        # a new stuff_for_frontend except with the form
+        stuff_for_frontend = {'form': form}
+    return render(request, 'blog/post_edit.html', stuff_for_frontend)
