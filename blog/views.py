@@ -20,7 +20,7 @@ def post_detail(request, pk):
 
 # 1.1.1.1. define it in views to render the html
 def post_new(request):
-    # GET request doesnt allow you to submit forms!
+    # GET request doesnt allow you to submit forms! /// POST == EX: changing something (text)
     if request.method == 'POST':
         # requesting form from forms.py (title and text)
         form = PostForm(request.POST)
@@ -38,5 +38,24 @@ def post_new(request):
         # form is calling the post_edit.html form, which equals the PostForm function
         form = PostForm()
         # a new stuff_for_frontend except with the form
+        stuff_for_frontend = {'form': form}
+    return render(request, 'blog/post_edit.html', stuff_for_frontend)
+
+# pk is so whatever blog is clicked on for edit can be found
+# post_edit is very similiar to post_edit except the form is being edited instead of created
+def post_edit(request, pk):
+    post = get_object_or_404(Post,pk=pk)
+    if request.method == 'POST':
+        # instead of creating a new form its just updating an already existing one
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.published_date = timezone.now()
+            post.save()
+            # once save is hit on updates it redirects user to detail html page
+            return redirect('post_detail', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
         stuff_for_frontend = {'form': form}
     return render(request, 'blog/post_edit.html', stuff_for_frontend)

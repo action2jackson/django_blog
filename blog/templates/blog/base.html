@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <script src="https://kit.fontawesome.com/38b200e1c8.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <!-- Bootstrap creates nice header -->
 <div class="page-header">
     <!-- / takes you home OR {% url "post_list" %} to go back to main page -->
-    <h1><a class="title" href="{% url 'post_list' %}">Jackson's Blog</a></h1>
+        <h1><a class="title" href="{% url 'post_list' %}">Jackson's Blog</a></h1>
+        <h1><a class="add-blog-post" href="{% url 'post_new' %}">&#43;</a></h1>
 </div>
 
 <!-- Bootstrap creates a container, row and column -->

@@ -14,4 +14,6 @@ urlpatterns = [
     # 2.2.2.2. plug it into urls to find it in views
     # 127.0.0.1:8000/post/new = local
     path('post/new/', views.post_new, name='post_new'),
+
+    path('post/<int:pk>/edit/', views.post_edit, name='post_edit')
 ]
