@@ -54,7 +54,7 @@ def post_edit(request, pk):
             post.published_date = timezone.now()
             post.save()
             # once save is hit on updates it redirects user to detail html page
-            return redirect('post_detail', pk=post.pk)
+        return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
         stuff_for_frontend = {'form': form}
