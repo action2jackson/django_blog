@@ -12,6 +12,7 @@ class Post(models.Model):
     published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
+        # self basically means "set" || EX: set a published date, set to save
         self.published_date = timezone.now()
         self.save()
 
