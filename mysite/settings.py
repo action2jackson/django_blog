@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 # Once you login you get transferred to the home page
 LOGIN_REDIRECT_URL = 'post_list'
+LOGOUT_REDIRECT_URL = 'post_list'
 
 # Application definition
 
