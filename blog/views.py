@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
@@ -19,6 +20,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', stuff_for_frontend)
 
 # 1.1.1.1. define it in views to render the html
+@login_required
 def post_new(request):
     # GET request doesnt allow you to submit forms! /// POST == EX: changing something (text)
     if request.method == 'POST':
@@ -41,6 +43,7 @@ def post_new(request):
 
 # pk is so whatever blog is clicked on for edit can be found
 # post_edit is very similiar to post_edit except the form is being edited instead of created
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post,pk=pk)
     if request.method == 'POST':
@@ -54,16 +57,18 @@ def post_edit(request, pk):
         return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm(instance=post)
-        stuff_for_frontend = {'form': form}
+        stuff_for_frontend = {'form': form, 'post': post}
     return render(request, 'blog/post_edit.html', stuff_for_frontend)
 
 # very similiar to post_list but created_date instead of published_date
+@login_required
 def post_draft_list(request):
     # checks that theres no published date and then orders them by created date
     posts = Post.objects.filter(published_date__isnull=True).order_by('-created_date')
     stuff_for_frontend = {'posts': posts}
     return render(request, 'blog/post_draft_list.html', stuff_for_frontend)
 
+@login_required()
 def post_publish(request, pk):
     # gets the post and primary key
     post = get_object_or_404(Post, pk=pk)

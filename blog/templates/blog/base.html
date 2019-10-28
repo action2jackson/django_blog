@@ -3,6 +3,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- this will allow us to change the title in different html pages -->
+    <title>{% block title %}{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
@@ -15,6 +17,8 @@
     {% if user.is_authenticated %}
         <a href="{% url 'post_draft_list' %}"><i class="fab fa-firstdraft" style="color: white; float: right; font-size: 46pt; margin-right: 26px;"></i></a>
         <a href="{% url 'post_new' %}"><i class="fas fa-plus" style="color: white; float: right; font-size: 46pt; margin-right: 26px;"></i></a>
+    {% else %}
+        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt fa-2x" style="color: white; float: right; font-size: 46pt; margin-right: 26px;"></i></a>
     {% endif %}
     <!-- / takes you home OR {% url "post_list" %} to go back to main page -->
     <h1><a href="{% url 'post_list' %}">Jackson's Blog</a></h1>

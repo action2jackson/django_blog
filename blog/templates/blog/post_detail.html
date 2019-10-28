@@ -1,6 +1,8 @@
 <!-- detail.html is the page that gets clicked into from the main.html page -->
 {% extends 'blog/base.html' %}
 
+{% block title %}{{ post.title }}{% endblock %}
+
 {% block content %}
     <div class="post">
     
