@@ -10,6 +10,7 @@
             <div class="date">
                 {{ post.published_date }}
             </div>
+
         {% else %}
             <a href="{% url 'post_publish' pk=post.pk %}" class="btn btn-primary">Publish</a>
 
@@ -22,5 +23,20 @@
         <h1>{{ post.title }}</h1>
         <p class="text">{{ post.text|linebreaksbr }}</p>
     </div>
+
+    <hr>
+    <a href="{% url 'add_comment_to_post' pk=post.pk %}" class="btn btn-secondary">Add Comment</a>
+    <!-- comment will be short for all the comments as a whole -->
+    {% for comment in post.comments.all %}
+        <div class="comment">
+
+            <p style="margin: auto; color: #c8a2c8;">{{ comment.created_date }}</p>
+            <strong><i>{{ comment.author }}</i></strong>
+
+            <p>{{ comment.text }}</p>
+        </div>
+        {% empty %}
+            <p>No comments yet...</p>
+    {% endfor %}
 {% endblock %}
 

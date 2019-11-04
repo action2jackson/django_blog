@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+# register your models in admin.py
 # Create your models here.
 # Change models file = change to the database (make migrations)
 class Post(models.Model):
@@ -20,3 +21,16 @@ class Post(models.Model):
     def __str__(self):
         # Shows the title as a string instead of the number of blog posts
         return self.title
+
+class Comment(models.Model):
+    # Cascade for this example if a post gets deleted so does its comments
+    # Post.objects.get(pk=2).comments.all() == shows all the comments because of related_name
+    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
+    author = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.text
+
+# You can know what post the comment is from and what comment the post is from

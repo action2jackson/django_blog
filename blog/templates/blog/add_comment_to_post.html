@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Comment{% endblock %}
+
+{% block content %}
+<!-- Very similiar html page as post_edit because they both take you to a form to create something -->
+<h1>New comment</h1>
+    <form method="post" class="post-form-blog">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+{% endblock %}
+
