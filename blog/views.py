@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
 from blog.forms import PostForm, CommentForm
-from .models import Post
+from .models import Post, Comment
 
 # Create your views here.
 def post_list(request):
@@ -93,3 +93,8 @@ def add_comment_to_post(request, pk):
         # because there is no comment being submitted the CommentForm() == all the comments for
         form = CommentForm()
     return render(request, 'blog/add_comment_to_post.html', {'form': form})
+
+def remove_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('post_detail', pk=comment.post.pk)

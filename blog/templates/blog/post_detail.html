@@ -33,7 +33,8 @@
             <p style="margin: auto; color: #c8a2c8;">{{ comment.created_date }}</p>
             <strong><i>{{ comment.author }}</i></strong>
 
-            <p>{{ comment.text }}</p>
+            <p>{{ comment.text }} <a href="{% url 'remove_comment' pk=comment.pk %}" class="btn btn-secondary"><i class="fas fa-times"></i></a></p>
+x
         </div>
         {% empty %}
             <p>No comments yet...</p>
