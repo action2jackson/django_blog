@@ -28,16 +28,27 @@
     <a href="{% url 'add_comment_to_post' pk=post.pk %}" class="btn btn-secondary">Add Comment</a>
     <!-- comment will be short for all the comments as a whole -->
     {% for comment in post.comments.all %}
-        <div class="comment">
+        {% if user.is_authenticated or comment.approved %}
+            <div class="comment">
 
-            <p style="margin: auto; color: #c8a2c8;">{{ comment.created_date }}</p>
-            <strong><i>{{ comment.author }}</i></strong>
+                <p style="margin: auto; color: #c8a2c8; padding-top: 25px;">{{ comment.created_date }}</p>
 
-            <p>{{ comment.text }} <a href="{% url 'remove_comment' pk=comment.pk %}" class="btn btn-secondary"><i class="fas fa-times"></i></a></p>
-x
-        </div>
-        {% empty %}
-            <p>No comments yet...</p>
+                {% if not comment.approved and user.is_superuser %}
+
+                    <a href="{% url 'approve_comment' pk=comment.pk %}" class="btn btn-secondary"><i class="fas fa-check"></i></a>
+
+                    <a href="{% url 'remove_comment' pk=comment.pk %}" class="btn btn-secondary"><i class="fas fa-times"></i></a>
+
+                {% endif %}
+
+                <br>
+                <strong><i>{{ comment.author }}</i></strong>
+                <p>{{ comment.text }}</p>
+            </div>
+
+        {% endif %}
+    {% empty %}
+        <p>No comments yet...</p>
     {% endfor %}
 {% endblock %}
 
