@@ -38,15 +38,6 @@ h1, h2, h3, h4 {
     color: #c8a2c8;
 }
 
-.text {
-    color: #ffffff;
-    background-color: black;
-    padding: 10px;
-    margin-top: 25px;
-    width: 100%;
-    border-radius: 3px;
-}
-
 .post-form-blog textarea {
     width: 100%;
 }

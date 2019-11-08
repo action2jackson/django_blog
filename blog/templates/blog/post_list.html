@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 
+{% load markdownify %}
+
 {% block title %}Jackson's blog{% endblock %}
 
 {% block content %}
@@ -14,7 +16,8 @@
             <!-- from the forloop we get the posts pk and then we send it to post_detail -->
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <!-- linebreaksbr == makes sure lines are breaking nicely-->
-            <p class="text">{{ post.text|truncatechars:50|linebreaksbr }}</p>
+            <!-- adds markdown capability to the text of the blog post -->
+            <p>{{ post.text | markdown | safe | linebreaksbr }}</p>
 
             <!-- We could just use {{ post.comments.count }} but this will also count not approved comments -->
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>

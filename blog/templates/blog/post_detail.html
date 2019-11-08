@@ -1,5 +1,7 @@
 <!-- detail.html is the page that gets clicked into from the main.html page -->
 {% extends 'blog/base.html' %}
+<!-- Need to load markdownify to use the file -->
+{% load markdownify %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -21,7 +23,9 @@
         {% endif %}
         
         <h1>{{ post.title }}</h1>
-        <p class="text">{{ post.text|linebreaksbr }}</p>
+        <!-- Add markdown to the text because that's were it is used and "safe" keeps it from disrupting the other code -->
+        <!-- deleted class "text" from html because zenburn.css puts the code in black blocks -->
+        <p>{{ post.text | markdown | safe }}</p>
     </div>
 
     <hr>
@@ -43,7 +47,8 @@
 
                 <br>
                 <strong><i>{{ comment.author }}</i></strong>
-                <p>{{ comment.text }}</p>
+                <!-- markdown for comments as well! -->
+                <p>{{ comment.text | markdown | safe | linebreaksbr}}</p>
             </div>
 
         {% endif %}
