@@ -1,8 +1,15 @@
+# Need this for users to sign in
+from django.contrib.auth import login
+# Users are basically ion read mode when not logged in
 from django.contrib.auth.decorators import login_required
+# Needs this to access the model = User
+from django.contrib.auth.models import User
+# Need these for almost every django application
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 
-from blog.forms import PostForm, CommentForm
+# Calling the three models that we created
+from blog.forms import PostForm, CommentForm, UserForm
 from .models import Post, Comment
 
 # Create your views here.
@@ -45,7 +52,7 @@ def post_new(request):
 # post_edit is very similiar to post_edit except the form is being edited instead of created
 @login_required
 def post_edit(request, pk):
-    post = get_object_or_404(Post,pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
         # instead of creating a new form its just updating an already existing one
         form = PostForm(request.POST, instance=post)
@@ -112,3 +119,14 @@ def approve_comment(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.approve()
     return redirect('post_detail', pk=comment.post.pk)
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('/')
+    else:
+        form = UserForm
+    return render(request, 'blog/signup.html', {'form': form})

@@ -25,6 +25,9 @@ SECRET_KEY = 'kjye&^ot4c5e9$i_16v5poz^20w6-y_i-cq!=zxch_^dw7d2@q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Gives crispy template some bootstrap styling to make it look nice
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 ALLOWED_HOSTS = []
 
 # Once you login you get transferred to the home page
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Need to add this for the blog application to run!
     'blog',
+    # This is a built in app by django, which is why it needs to be installed in settings
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

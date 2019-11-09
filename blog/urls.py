@@ -31,4 +31,6 @@ urlpatterns = [
     path('comment/<int:pk>/remove/', views.remove_comment, name='remove_comment'),
 
     path('comment/<int:pk>/approve', views.approve_comment, name='approve_comment'),
+
+    path('signup/', views.signup, name='signup'),
 ]
