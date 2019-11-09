@@ -1,3 +1,4 @@
+# NEED __init__.py FILE TO ALLOW markdownify.py TO WORK!!!!
 from django import template
 # Had to pip install markdown, mistune and pygments
 import mistune
