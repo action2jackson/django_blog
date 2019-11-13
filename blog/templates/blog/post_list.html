@@ -2,7 +2,7 @@
 
 {% load markdownify %}
 
-{% block title %}Jackson's blog{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block content %}
     <!-- takes posts from stuff_for_frontend and connects it with a forloop -->
@@ -17,7 +17,10 @@
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
             <!-- linebreaksbr == makes sure lines are breaking nicely-->
             <!-- adds markdown capability to the text of the blog post -->
-            <p>{{ post.text | markdown | safe | linebreaksbr }}</p>
+            <div style="border: 5px dotted black; padding-top: 15px; padding-left: 10px;">
+                <p {{ post.text | markdown | safe | linebreaksbr | truncatechars:50 }}</p>
+            </div>
+            <br>
 
             <!-- We could just use {{ post.comments.count }} but this will also count not approved comments -->
             <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.approved_comments.count }}</a>
